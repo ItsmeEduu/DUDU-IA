@@ -33,7 +33,6 @@ async function sendMessage() {
 
     // Limpa campo
     input.value = "";
-
     input.style.height = "auto";
 
 
@@ -43,7 +42,7 @@ async function sendMessage() {
 
     const typingElement = addMessage(
         "ai",
-        "⚡ DUDU AI está pensando..."
+        "⚡ DUDU IA está pensando..."
     );
 
     const textElement =
@@ -72,6 +71,10 @@ async function sendMessage() {
         );
 
 
+        // =================================================
+        // VERIFICA ERRO HTTP
+        // =================================================
+
         if (!response.ok) {
 
             throw new Error(
@@ -81,8 +84,16 @@ async function sendMessage() {
 
 
         // =================================================
-        // STREAMING
+        // VERIFICA STREAMING
         // =================================================
+
+        if (!response.body) {
+
+            throw new Error(
+                "O servidor não retornou streaming."
+            );
+        }
+
 
         const reader =
             response.body.getReader();
@@ -94,6 +105,10 @@ async function sendMessage() {
 
         let firstChunk = true;
 
+
+        // =================================================
+        // RECEBE A RESPOSTA AOS POUCOS
+        // =================================================
 
         while (true) {
 
@@ -122,40 +137,84 @@ async function sendMessage() {
                 firstChunk = false;
 
                 textElement.textContent = "";
-
             }
 
 
             fullResponse += chunk;
 
-
-            // Mostra imediatamente na tela
             textElement.textContent =
                 fullResponse;
-
 
             scrollToBottom();
         }
 
 
         // =================================================
-        // FINALIZA RESPOSTA
+        // FINALIZA STREAM
         // =================================================
+
+        const finalChunk =
+            decoder.decode();
+
+        if (finalChunk) {
+
+            fullResponse += finalChunk;
+
+            textElement.textContent =
+                fullResponse;
+        }
+
 
         fullResponse =
             fullResponse.trim();
 
 
+        // =================================================
+        // RESPOSTA VAZIA
+        // =================================================
+
         if (!fullResponse) {
 
             fullResponse =
                 "Não consegui formular uma resposta.";
+
+            textElement.textContent =
+                fullResponse;
         }
 
 
-        textElement.textContent =
-            fullResponse;
+        // =================================================
+        // SEGURANÇA CONTRA JSON
+        // =================================================
 
+        try {
+
+            const parsed =
+                JSON.parse(fullResponse);
+
+            if (
+                parsed &&
+                typeof parsed === "object" &&
+                parsed.reply
+            ) {
+
+                fullResponse =
+                    parsed.reply;
+
+                textElement.textContent =
+                    fullResponse;
+            }
+
+        } catch (error) {
+
+            // A resposta já é texto normal.
+            // Não precisa fazer nada.
+        }
+
+
+        // =================================================
+        // SALVA HISTÓRICO
+        // =================================================
 
         conversation.push({
 
@@ -169,13 +228,13 @@ async function sendMessage() {
     } catch (error) {
 
         console.error(
-            "Erro DUDU AI:",
+            "Erro DUDU IA:",
             error
         );
 
 
         textElement.textContent =
-            "⚠️ Não consegui conectar com a DUDU AI. Tente novamente.";
+            "⚠️ Não consegui conectar com a DUDU IA. Tente novamente.";
 
 
         // Remove a pergunta que ficou sem resposta
@@ -229,7 +288,7 @@ function addMessage(role, text) {
 
 
     // Segurança:
-    // usamos textContent em vez de innerHTML
+    // textContent impede HTML malicioso
     paragraph.textContent =
         text;
 
@@ -359,27 +418,36 @@ function closeSidebar() {
 }
 
 
-menuToggle.addEventListener(
-    "click",
-    toggleSidebar
-);
+if (menuToggle) {
 
-
-overlay.addEventListener(
-    "click",
-    closeSidebar
-);
-
-
-sidebar
-    .querySelectorAll("a")
-    .forEach(
-        (link) => {
-
-            link.addEventListener(
-                "click",
-                closeSidebar
-            );
-
-        }
+    menuToggle.addEventListener(
+        "click",
+        toggleSidebar
     );
+}
+
+
+if (overlay) {
+
+    overlay.addEventListener(
+        "click",
+        closeSidebar
+    );
+}
+
+
+if (sidebar) {
+
+    sidebar
+        .querySelectorAll("a")
+        .forEach(
+            (link) => {
+
+                link.addEventListener(
+                    "click",
+                    closeSidebar
+                );
+
+            }
+        );
+}

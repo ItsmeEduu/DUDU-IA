@@ -1,10 +1,11 @@
 import importlib
+import json
 import os
-import time
 import threading
+import time
 
 from dotenv import load_dotenv
-from flask import Flask, jsonify, request, send_from_directory, Response, stream_with_context
+from flask import Flask, Response, jsonify, request, send_from_directory, stream_with_context
 from google import genai
 from google.genai import errors, types
 
@@ -75,16 +76,21 @@ RESPONDA SEMPRE:
 - curta e objetiva;
 - normalmente em no máximo 4 frases;
 - sem enrolação;
-- sem inventar informações.
+- sem inventar informações;
+- responda SOMENTE com texto normal;
+- NUNCA responda em JSON;
+- NUNCA use formatos como {"reply":"..."}.
 
 SOBRE EDUARDO:
 
+- Nome: Eduardo Ferreira de Souza.
 - É estudante de Análise e Desenvolvimento de Sistemas.
+- Estuda na Universidade Cruzeiro do Sul.
 - Tem interesse em desenvolvimento de software, tecnologia e Inteligência Artificial.
 - Está construindo sua experiência através de projetos práticos.
 - Tem contato com tecnologia desde os 9 anos.
-- Seu animal seria uma capivara, destacando características positivas.
 - Demonstra vontade de aprender e evoluir profissionalmente.
+- Seu animal seria uma capivara, destacando características positivas.
 
 PORTFÓLIO:
 
@@ -134,13 +140,6 @@ _github_cache = {
 
 
 def get_github_summary_cached():
-    """
-    Retorna o GitHub armazenado em cache.
-
-    IMPORTANTE:
-    Esta função NÃO bloqueia a pergunta esperando o GitHub.
-    """
-
     agora = time.time()
 
     if agora < _github_cache["expires"]:
@@ -150,10 +149,6 @@ def get_github_summary_cached():
 
 
 def update_github_cache():
-    """
-    Atualiza o GitHub em segundo plano.
-    """
-
     try:
         summary = get_github_summary()
 
@@ -168,10 +163,6 @@ def update_github_cache():
 
 
 def github_background_update():
-    """
-    Executa a atualização do GitHub sem travar o servidor.
-    """
-
     thread = threading.Thread(
         target=update_github_cache,
         daemon=True
@@ -191,26 +182,23 @@ def build_config():
     summary = get_github_summary_cached()
 
     if summary:
-
         prompt += (
             "\n\nATIVIDADE RECENTE NO GITHUB:\n"
             + summary
         )
-
     else:
-
         prompt += (
             "\n\nA atividade recente do GitHub "
             "não está disponível neste momento."
         )
 
     return types.GenerateContentConfig(
-
         system_instruction=prompt,
-
         max_output_tokens=500,
-
         temperature=0.5,
+
+        # Garante que o modelo responda em texto.
+        response_mime_type="text/plain",
 
         thinking_config=types.ThinkingConfig(
             thinking_level="low"
@@ -276,13 +264,11 @@ def convert_history(history):
 
         contents.append(
             types.Content(
-
                 role=(
                     "user"
                     if item["role"] == "user"
                     else "model"
                 ),
-
                 parts=[
                     types.Part(
                         text=item["content"]
@@ -292,6 +278,33 @@ def convert_history(history):
         )
 
     return contents
+
+
+# =========================================================
+# LIMPEZA DE RESPOSTA
+# =========================================================
+
+def clean_response(text):
+
+    if not isinstance(text, str):
+        return ""
+
+    text = text.strip()
+
+    # Caso alguma resposta venha como JSON:
+    try:
+
+        data = json.loads(text)
+
+        if isinstance(data, dict):
+
+            if "reply" in data:
+                return str(data["reply"]).strip()
+
+    except Exception:
+        pass
+
+    return text
 
 
 # =========================================================
@@ -320,11 +333,8 @@ def generate_stream(contents):
             )
 
             stream = client.models.generate_content_stream(
-
                 model=model,
-
                 contents=contents,
-
                 config=config
             )
 
@@ -368,8 +378,6 @@ def generate_stream(contents):
                 f"no modelo {model}"
             )
 
-            # Se o modelo estiver indisponível,
-            # tenta imediatamente o fallback.
             if error.code in (429, 500, 503):
                 continue
 
@@ -455,9 +463,7 @@ def chat():
 
         try:
 
-            for text in generate_stream(
-                contents
-            ):
+            for text in generate_stream(contents):
 
                 yield text
 
@@ -486,13 +492,8 @@ def chat():
             )
 
     return Response(
-
-        stream_with_context(
-            generate()
-        ),
-
+        stream_with_context(generate()),
         mimetype="text/plain; charset=utf-8",
-
         headers={
             "Cache-Control": "no-cache",
             "X-Accel-Buffering": "no"
@@ -506,7 +507,6 @@ def chat():
 
 if __name__ == "__main__":
 
-    # Atualiza GitHub sem bloquear o servidor
     github_background_update()
 
     port = int(
