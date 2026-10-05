@@ -5,7 +5,14 @@ import threading
 import time
 
 from dotenv import load_dotenv
-from flask import Flask, Response, jsonify, request, send_from_directory, stream_with_context
+from flask import (
+    Flask,
+    Response,
+    jsonify,
+    request,
+    send_from_directory,
+    stream_with_context
+)
 from google import genai
 from google.genai import errors, types
 
@@ -198,7 +205,6 @@ def build_config():
         max_output_tokens=500,
         temperature=0.5,
 
-        # Garante que o modelo responda em texto.
         response_mime_type="text/plain",
 
         thinking_config=types.ThinkingConfig(
@@ -292,7 +298,6 @@ def clean_response(text):
 
     text = text.strip()
 
-    # Caso alguma resposta venha como JSON:
     try:
 
         data = json.loads(text)
@@ -426,6 +431,19 @@ def js(filename):
 
     return send_from_directory(
         os.path.join(BASE_DIR, "js"),
+        filename
+    )
+
+
+# =========================================================
+# CURRÍCULO
+# =========================================================
+
+@app.route("/curriculo/<path:filename>")
+def curriculo(filename):
+
+    return send_from_directory(
+        os.path.join(BASE_DIR, "curriculo"),
         filename
     )
 
