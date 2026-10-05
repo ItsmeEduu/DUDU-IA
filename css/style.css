@@ -1,0 +1,348 @@
+/* ==========================================================================
+   CSS UPGRADE: DESIGN PROFISSIONAL EM ESTILO GLASSMORPHISM & NEON REDLINE
+   ========================================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', Arial, Helvetica, sans-serif; /* Troca sutil para uma fonte mais moderna */
+    /* Fundo gradiente profundo que serve de base para a transparência */
+    background: linear-gradient(135deg, #050507 0%, #12131a 100%);
+    color: #e2e4e9;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.app {
+    display: flex;
+    height: 100vh;
+}
+
+/* ===== BARRA LATERAL (TRANSLÚCIDA) ===== */
+.sidebar {
+    width: 260px;
+    /* Efeito Vidro Fumê: Preto translúcido gradiente */
+    background: linear-gradient(180deg, rgba(13, 14, 18, 0.75) 0%, rgba(5, 5, 7, 0.85) 100%);
+    backdrop-filter: blur(12px); /* Desfoque do vidro */
+    -webkit-backdrop-filter: blur(12px);
+    border-right: 1px solid rgba(218, 41, 42, 0.15); /* Borda fina com leve tom vermelho */
+    display: flex;
+    flex-direction: column;
+    padding: 24px 20px;
+    z-index: 10;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    background: #da292a;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    /* Neon Vermelho no ícone principal */
+    box-shadow: 0 0 15px rgba(218, 41, 42, 0.4);
+}
+
+.logo h1 {
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    background: linear-gradient(90deg, #ffffff 0%, #888e9e 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ===== BOTÃO DO CURRÍCULO (ESTILO NEON PREMIUM) ===== */
+.new-chat {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    border: 1px solid rgba(218, 41, 42, 0.4);
+    background: linear-gradient(90deg, rgba(128, 16, 17, 0.6) 0%, rgba(218, 41, 42, 0.6) 100%);
+    backdrop-filter: blur(4px);
+    color: white;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Neon sutil em repouso */
+    box-shadow: 0 4px 15px rgba(218, 41, 42, 0.15);
+}
+
+.new-chat:hover {
+    background: linear-gradient(90deg, #da292a 0%, #ff3b3c 100%);
+    border-color: #ff3b3c;
+    /* Explosão de luz neon no hover */
+    box-shadow: 0 0 20px rgba(218, 41, 42, 0.6);
+    transform: translateY(-1px);
+}
+
+/* ===== LOG DE MISSÕES (HISTÓRICO) ===== */
+.history {
+    margin-top: 35px;
+}
+
+.history-title {
+    color: #565c6d;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    letter-spacing: 1.2px;
+}
+
+.history-item {
+    display: block;
+    text-decoration: none;
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 8px;
+    color: #a0a5b5;
+    font-size: 13.5px;
+    margin-bottom: 8px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    transition: all 0.2s ease;
+}
+
+.history-item:hover {
+    background: rgba(218, 41, 42, 0.06);
+    color: white;
+    border-color: rgba(218, 41, 42, 0.3);
+    /* Neon sutil interno delimitado pela linha vermelha esquerda */
+    box-shadow: inset 4px 0 0 0 #da292a, 0 4px 12px rgba(218, 41, 42, 0.1);
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    color: #4e5361;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+}
+
+/* ===== ÁREA DO CHAT ===== */
+.chat {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    position: relative;
+}
+
+/* Cabeçalho do Chat */
+.chat-header {
+    height: 70px;
+    background: rgba(11, 11, 13, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
+}
+
+.chat-header h2 {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #636977;
+    font-size: 11px;
+    margin-top: 4px;
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    background: #27ae60;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #27ae60; /* Sutil pulso verde de online */
+}
+
+/* ===== CONTAINER DE MENSAGENS ===== */
+.messages {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 40px 30px;
+    max-width: 950px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.message {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 32px;
+    animation: fadeIn 0.3s ease-out; /* Transição suave profissional ao surgir mensagem */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.avatar {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.message-content {
+    max-width: 750px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 16px 20px;
+    border-radius: 4px 16px 16px 16px; /* Design assimétrico moderno */
+    backdrop-filter: blur(4px);
+}
+
+.sender {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.message-content p {
+    color: #e2e4e9;
+    line-height: 1.6;
+    font-size: 14.5px;
+}
+
+/* Estilo Customizado: Mensagem da Inteligência Artificial */
+.ai-message .avatar {
+    background: linear-gradient(135deg, #801011 0%, #da292a 100%);
+    box-shadow: 0 0 10px rgba(218, 41, 42, 0.3);
+}
+.ai-message .sender { color: #888e9e; }
+
+/* Estilo Customizado: Mensagem do Usuário */
+.user-message {
+    flex-direction: row-reverse;
+}
+.user-message .avatar {
+    background: rgba(34, 37, 46, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.user-message .message-content {
+    border-radius: 16px 4px 16px 16px;
+    background: rgba(218, 41, 42, 0.04); /* Caixa levemente avermelhada para o usuário */
+    border-color: rgba(218, 41, 42, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+.user-message .sender {
+    color: #da292a;
+    text-align: right;
+}
+.user-message .message-content p { text-align: left; }
+
+/* ===== CAIXA DE ENTRADA (BOTÃO & TEXTAREA GLASS) ===== */
+.input-area {
+    width: 100%;
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 0 30px 24px;
+}
+
+.input-box {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    /* Transparência gradiente fluindo pro preto de fundo */
+    background: linear-gradient(135deg, rgba(13, 14, 18, 0.6) 0%, rgba(5, 5, 7, 0.85) 100%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 12px;
+    border-radius: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efeito de foco neon na caixa inteira ao digitar */
+.input-box:focus-within {
+    border-color: rgba(218, 41, 42, 0.5);
+    box-shadow: 0 0 18px rgba(218, 41, 42, 0.25);
+}
+
+.input-box textarea {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    resize: none;
+    font-family: inherit;
+    font-size: 14.5px;
+    padding: 6px;
+    max-height: 150px;
+}
+
+.input-box textarea::placeholder {
+    color: #4a4f5d;
+}
+
+.input-box button {
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 12px;
+    background: #da292a;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(218, 41, 42, 0.3);
+}
+
+.input-box button:hover {
+    background: #ff3b3c;
+    box-shadow: 0 0 12px rgba(218, 41, 42, 0.6);
+    transform: scale(1.02);
+}
+
+.disclaimer {
+    text-align: center;
+    color: #444955;
+    font-size: 11px;
+    margin-top: 10px;
+    letter-spacing: 0.3px;
+}
+
+/* ===== MEDIA QUERIES ===== */
+@media (max-width: 700px) {
+    .sidebar { display: none; }
+    .messages { padding: 20px 15px; }
+    .input-area { padding: 0 15px 15px; }
+    .chat-header { padding: 0 20px; }
+}

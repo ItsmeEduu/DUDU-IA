@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DUDU AI // ASSISTENTE VIRTUAL!</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- BARRA LATERAL -->
+        <aside class="sidebar">
+
+            <div class="logo">
+                <div class="logo-icon">🤖</div>
+                <h1>DUDU AI</h1>
+            </div>
+
+            <!-- MODIFICADO: Substituído o botão pelo Link do Currículo (Classe mantida para preservar o estilo CSS Redline) -->
+            <!-- Insira o link do seu arquivo (PDF do Google Drive, Canva ou Notion) no atributo href -->
+            <a href="/curriculo/Currículo Eduardo Ferreira de Souza - TI.pdf" target="_blank" class="new-chat" style="text-align: center; text-decoration: none; display: block;">
+                📄 Currículo
+            </a>
+
+            <div class="history">
+
+                <!-- TEXTO ALTERADO: Histórico virou Log de Missões -->
+                <p class="history-title">Projetos Desenvolvidos</p>
+
+                <!-- CORRIGIDO: Agora são links reais que abrem em nova aba -->
+                <a href="https://github.com/ItsmeEduu/CPPeople" target="_blank" class="history-item">
+                    📁 Noções em C++ e SQL
+                </a>
+
+                <a href="https://itsmeeduu.github.io/edsom-eletronicos/" target="_blank" class="history-item">
+                    📁 Vitrine Responsiva HTML
+                </a>
+
+                <!-- NOVO ITEM ADICIONADO: Seu projeto integrado ao Firebase -->
+                <a href="https://github.com/ItsmeEduu/formulario-firebase" target="_blank" class="history-item">
+                    📁 Formulário Firebase
+                </a>
+
+                <a href="https://www.linkedin.com/in/itsmeeduu/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3Bf00e7lljTwq5nb7DZrct5Q%3D%3D" target="_blank" class="history-item">
+                    🛜 LinkedIn para Contato!
+                </a>
+
+            </div>
+
+            <div class="sidebar-footer">
+                <span>🚀 Link: Portfólio GitHub</span>
+            </div>
+
+        </aside>
+
+
+        <!-- ÁREA PRINCIPAL -->
+        <main class="chat">
+
+            <!-- CABEÇALHO -->
+            <header class="chat-header">
+
+                <div>
+                    <h2>DUDU AI</h2>
+                    <!-- TEXTO ALTERADO: Status de conexão seguro do CS -->
+                    <span class="status">
+                        <span class="status-dot"></span>
+                        Servidor Seguro [VAC]
+                    </span>
+                </div>
+
+            </header>
+
+
+            <!-- MENSAGENS -->
+            <section class="messages" id="messages">
+
+                <!-- MENSAGEM DA IA -->
+                <div class="message ai-message">
+
+                    <div class="avatar">
+                        🤖
+                    </div>
+
+                    <div class="message-content">
+
+                        <span class="sender">DUDU AI</span>
+
+                        <!-- TEXTO ALTERADO: Saudação inicial tática -->
+                        <p>
+                            DUDU AI ativo. 🦾<br><br>
+                            Portifólio com IA!
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- EXEMPLO DE MENSAGEM DO USUÁRIO -->
+                <!-- Vamos ativar isso pelo JavaScript depois -->
+
+            </section>
+
+
+            <!-- CAMPO DE TEXTO -->
+            <div class="input-area">
+
+                <div class="input-box">
+
+                    <!-- TEXTO ALTERADO: Placeholder imitando digitação no console -->
+                    <textarea
+                        id="user-input"
+                        placeholder="Digite sua DUDUvida..."
+                        rows="1"
+                    ></textarea>
+
+                    <button id="send-button">
+                        ➤
+                    </button>
+
+                </div>
+
+                <!-- TEXTO ALTERADO: Disclaimer tático -->
+                <p class="disclaimer">
+                    Sistemas táticos podem oscilar. Verifique as informações importantes.
+                </p>
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <script src="js/script.js"></script>
+
+</body>
+</html>
