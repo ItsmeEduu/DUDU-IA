@@ -1,11 +1,18 @@
+import importlib
 import os
 import time
+from abc import ABC, abstractmethod
 
 from dotenv import load_dotenv
 from flask import Flask, jsonify, request, send_from_directory
-from flask_cors import CORS  # <--- ADICIONADO
 from google import genai
 from google.genai import errors, types
+
+try:
+    flask_cors = importlib.import_module("flask_cors")
+    CORS = flask_cors.CORS
+except ModuleNotFoundError:
+    CORS = None
 
 from github_info import get_github_summary
 
@@ -73,11 +80,29 @@ Regras importantes:
 """.strip()
 
 
+
+# ===== CACHE DO GITHUB =====
+_github_cache = {"text": None, "expires": 0}
+
+
+def get_github_summary_cached():
+    """Consulta o GitHub no máximo 1 vez a cada 10 minutos."""
+    agora = time.time()
+    if agora < _github_cache["expires"]:
+        return _github_cache["text"]
+
+    summary = get_github_summary()
+    segundos = 600 if summary else 60
+    _github_cache["text"] = summary
+    _github_cache["expires"] = agora + segundos
+    return summary
+
+
 def build_config():
     """Monta a configuração a cada pergunta, com o GitHub atualizado."""
     prompt = SYSTEM_PROMPT
 
-    summary = get_github_summary()
+    summary = get_github_summary_cached()
     if summary:
         prompt += (
             "\n\nATIVIDADE RECENTE NO GITHUB "
@@ -94,7 +119,72 @@ def build_config():
         system_instruction=prompt,
         max_output_tokens=1500,
         temperature=0.7,
+        thinking_config=types.ThinkingConfig(thinking_level="low"),
     )
+
+
+class response(ABC):
+    """Base para padronizar respostas da IA."""
+
+    @property
+    @abstractmethod
+    def text(self):
+        raise NotImplementedError
+
+    @property
+    @abstractmethod
+    def model_version(self):
+        raise NotImplementedError
+
+    @abstractmethod
+    def to_dict(self):
+        raise NotImplementedError
+
+
+class GeminiResponse(response):
+    """Wrapper útil para respostas do Gemini, com extração robusta do texto."""
+
+    def __init__(self, raw_response):
+        self._raw_response = raw_response
+        self._text = self._extract_text(raw_response)
+        self._model_version = getattr(raw_response, "model_version", "unknown")
+
+    @staticmethod
+    def _extract_text(raw_response):
+        if raw_response is None:
+            return ""
+
+        text = getattr(raw_response, "text", None)
+        if text:
+            return text
+
+        candidates = getattr(raw_response, "candidates", None) or []
+        for candidate in candidates:
+            content = getattr(candidate, "content", None)
+            parts = getattr(content, "parts", None) or []
+            for part in parts:
+                part_text = getattr(part, "text", None)
+                if part_text:
+                    return part_text
+
+        return ""
+
+    @property
+    def text(self):
+        return self._text or ""
+
+    @property
+    def model_version(self):
+        return self._model_version or "unknown"
+
+    def to_dict(self):
+        return {
+            "text": self.text,
+            "model_version": self.model_version,
+        }
+
+    def __str__(self):
+        return self.text
 
 
 def ask_gemini(contents):
@@ -109,11 +199,17 @@ def ask_gemini(contents):
     for model in models:
         for attempt in range(2):
             try:
-                return client.models.generate_content(
+                inicio = time.time()
+                response = client.models.generate_content(
                     model=model,
                     contents=contents,
                     config=config,
                 )
+                wrapped_response = GeminiResponse(response)
+                print(
+                    f"Gemini ({wrapped_response.model_version}) respondeu em {time.time() - inicio:.1f}s"
+                )
+                return wrapped_response
             except errors.APIError as error:
                 last_error = error
                 print(f"Erro {error.code} no modelo {model} (tentativa {attempt + 1})")
