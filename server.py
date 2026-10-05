@@ -3,6 +3,7 @@ import time
 
 from dotenv import load_dotenv
 from flask import Flask, jsonify, request, send_from_directory
+from flask_cors import CORS  # <--- ADICIONADO
 from google import genai
 from google.genai import errors, types
 
@@ -13,6 +14,7 @@ load_dotenv()
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 app = Flask(__name__, static_folder=None)
+CORS(app)  # <--- ADICIONADO (Permite requisições do GitHub Pages)
 
 API_KEY = os.getenv("GEMINI_API_KEY")
 if not API_KEY:
@@ -132,12 +134,12 @@ def home():
     return send_from_directory(BASE_DIR, "index.html")
 
 
-@app.route("/css/<path:filename>")
+@app.route("/css/")
 def css(filename):
     return send_from_directory(os.path.join(BASE_DIR, "css"), filename)
 
 
-@app.route("/js/<path:filename>")
+@app.route("/js/")
 def js(filename):
     return send_from_directory(os.path.join(BASE_DIR, "js"), filename)
 
@@ -200,5 +202,6 @@ def chat():
     return jsonify(reply=reply)
 
 
-if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
