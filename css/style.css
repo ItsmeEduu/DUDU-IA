@@ -1,27 +1,29 @@
 /* ==========================================================================
    CSS UPGRADE: DESIGN PROFISSIONAL EM ESTILO GLASSMORPHISM & NEON REDLINE
    ========================================================================== */
-
+ 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
+ 
 body {
     font-family: 'Inter', Arial, Helvetica, sans-serif; /* Troca sutil para uma fonte mais moderna */
     /* Fundo gradiente profundo que serve de base para a transparência */
     background: linear-gradient(135deg, #050507 0%, #12131a 100%);
     color: #e2e4e9;
     height: 100vh;
+    height: 100dvh;
     overflow: hidden;
 }
-
+ 
 .app {
     display: flex;
     height: 100vh;
+    height: 100dvh;
 }
-
+ 
 /* ===== BARRA LATERAL (TRANSLÚCIDA) ===== */
 .sidebar {
     width: 260px;
@@ -35,14 +37,14 @@ body {
     padding: 24px 20px;
     z-index: 10;
 }
-
+ 
 .logo {
     display: flex;
     align-items: center;
     gap: 12px;
     margin-bottom: 25px;
 }
-
+ 
 .logo-icon {
     width: 40px;
     height: 40px;
@@ -55,7 +57,7 @@ body {
     /* Neon Vermelho no ícone principal */
     box-shadow: 0 0 15px rgba(218, 41, 42, 0.4);
 }
-
+ 
 .logo h1 {
     font-size: 19px;
     font-weight: 800;
@@ -65,7 +67,7 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-
+ 
 /* ===== BOTÃO DO CURRÍCULO (ESTILO NEON PREMIUM) ===== */
 .new-chat {
     display: block;
@@ -86,7 +88,7 @@ body {
     /* Neon sutil em repouso */
     box-shadow: 0 4px 15px rgba(218, 41, 42, 0.15);
 }
-
+ 
 .new-chat:hover {
     background: linear-gradient(90deg, #da292a 0%, #ff3b3c 100%);
     border-color: #ff3b3c;
@@ -94,12 +96,12 @@ body {
     box-shadow: 0 0 20px rgba(218, 41, 42, 0.6);
     transform: translateY(-1px);
 }
-
+ 
 /* ===== LOG DE MISSÕES (HISTÓRICO) ===== */
 .history {
     margin-top: 35px;
 }
-
+ 
 .history-title {
     color: #565c6d;
     font-size: 11px;
@@ -108,7 +110,7 @@ body {
     margin-bottom: 16px;
     letter-spacing: 1.2px;
 }
-
+ 
 .history-item {
     display: block;
     text-decoration: none;
@@ -122,7 +124,7 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.03);
     transition: all 0.2s ease;
 }
-
+ 
 .history-item:hover {
     background: rgba(218, 41, 42, 0.06);
     color: white;
@@ -130,14 +132,14 @@ body {
     /* Neon sutil interno delimitado pela linha vermelha esquerda */
     box-shadow: inset 4px 0 0 0 #da292a, 0 4px 12px rgba(218, 41, 42, 0.1);
 }
-
+ 
 .sidebar-footer {
     margin-top: auto;
     color: #4e5361;
     font-size: 11px;
     letter-spacing: 0.5px;
 }
-
+ 
 /* ===== ÁREA DO CHAT ===== */
 .chat {
     flex: 1;
@@ -146,7 +148,7 @@ body {
     min-height: 0;
     position: relative;
 }
-
+ 
 /* Cabeçalho do Chat */
 .chat-header {
     height: 70px;
@@ -158,13 +160,13 @@ body {
     align-items: center;
     padding: 0 40px;
 }
-
+ 
 .chat-header h2 {
     font-size: 17px;
     font-weight: 700;
     letter-spacing: 0.5px;
 }
-
+ 
 .status {
     display: flex;
     align-items: center;
@@ -173,7 +175,7 @@ body {
     font-size: 11px;
     margin-top: 4px;
 }
-
+ 
 .status-dot {
     width: 6px;
     height: 6px;
@@ -181,7 +183,7 @@ body {
     border-radius: 50%;
     box-shadow: 0 0 8px #27ae60; /* Sutil pulso verde de online */
 }
-
+ 
 /* ===== CONTAINER DE MENSAGENS ===== */
 .messages {
     flex: 1;
@@ -192,19 +194,19 @@ body {
     width: 100%;
     margin: 0 auto;
 }
-
+ 
 .message {
     display: flex;
     gap: 16px;
     margin-bottom: 32px;
     animation: fadeIn 0.3s ease-out; /* Transição suave profissional ao surgir mensagem */
 }
-
+ 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(6px); }
     to { opacity: 1; transform: translateY(0); }
 }
-
+ 
 .avatar {
     width: 38px;
     height: 38px;
@@ -215,7 +217,7 @@ body {
     justify-content: center;
     font-size: 16px;
 }
-
+ 
 .message-content {
     max-width: 750px;
     background: rgba(255, 255, 255, 0.02);
@@ -224,7 +226,7 @@ body {
     border-radius: 4px 16px 16px 16px; /* Design assimétrico moderno */
     backdrop-filter: blur(4px);
 }
-
+ 
 .sender {
     display: block;
     font-size: 12px;
@@ -233,20 +235,20 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
-
+ 
 .message-content p {
     color: #e2e4e9;
     line-height: 1.6;
     font-size: 14.5px;
 }
-
+ 
 /* Estilo Customizado: Mensagem da Inteligência Artificial */
 .ai-message .avatar {
     background: linear-gradient(135deg, #801011 0%, #da292a 100%);
     box-shadow: 0 0 10px rgba(218, 41, 42, 0.3);
 }
 .ai-message .sender { color: #888e9e; }
-
+ 
 /* Estilo Customizado: Mensagem do Usuário */
 .user-message {
     flex-direction: row-reverse;
@@ -266,7 +268,7 @@ body {
     text-align: right;
 }
 .user-message .message-content p { text-align: left; }
-
+ 
 /* ===== CAIXA DE ENTRADA (BOTÃO & TEXTAREA GLASS) ===== */
 .input-area {
     width: 100%;
@@ -274,7 +276,7 @@ body {
     margin: 0 auto;
     padding: 0 30px 24px;
 }
-
+ 
 .input-box {
     display: flex;
     align-items: flex-end;
@@ -288,13 +290,13 @@ body {
     border-radius: 16px;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
-
+ 
 /* Efeito de foco neon na caixa inteira ao digitar */
 .input-box:focus-within {
     border-color: rgba(218, 41, 42, 0.5);
     box-shadow: 0 0 18px rgba(218, 41, 42, 0.25);
 }
-
+ 
 .input-box textarea {
     flex: 1;
     background: transparent;
@@ -307,11 +309,11 @@ body {
     padding: 6px;
     max-height: 150px;
 }
-
+ 
 .input-box textarea::placeholder {
     color: #4a4f5d;
 }
-
+ 
 .input-box button {
     width: 42px;
     height: 42px;
@@ -324,13 +326,13 @@ body {
     transition: all 0.2s ease;
     box-shadow: 0 2px 8px rgba(218, 41, 42, 0.3);
 }
-
+ 
 .input-box button:hover {
     background: #ff3b3c;
     box-shadow: 0 0 12px rgba(218, 41, 42, 0.6);
     transform: scale(1.02);
 }
-
+ 
 .disclaimer {
     text-align: center;
     color: #444955;
@@ -338,10 +340,63 @@ body {
     margin-top: 10px;
     letter-spacing: 0.3px;
 }
-
+ 
+/* ===== GAVETA (MOBILE) ===== */
+.menu-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    margin-right: 14px;
+    border: 1px solid rgba(218, 41, 42, 0.4);
+    border-radius: 10px;
+    background: rgba(218, 41, 42, 0.15);
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+ 
+.overlay {
+    display: none;
+}
+ 
 /* ===== MEDIA QUERIES ===== */
 @media (max-width: 700px) {
-    .sidebar { display: none; }
+    .menu-toggle { display: flex; }
+ 
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        z-index: 1000;
+        overflow-y: auto;
+    }
+ 
+    .sidebar.open {
+        transform: translateX(0);
+    }
+ 
+    .overlay {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        z-index: 999;
+    }
+ 
+    .overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+ 
     .messages { padding: 20px 15px; }
     .input-area { padding: 0 15px 15px; }
     .chat-header { padding: 0 20px; }
