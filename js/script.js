@@ -22,11 +22,12 @@ async function sendMessage() {
     input.value = "";
     input.style.height = "auto";
 
-    // TEXTO ALTERADO: Efeito de carregamento tático
+    // Efeito de carregamento tático
     const typingElement = addMessage("ai", "Processando diretrizes...");
 
     try {
-        const response = await fetch("/chat", {
+        // Endpoint apontando para a API hospedada no Render
+        const response = await fetch("https://dudu-ia.onrender.com/chat", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ messages: conversation }),
@@ -44,7 +45,6 @@ async function sendMessage() {
         conversation.push({ role: "assistant", content: data.reply });
     } catch (error) {
         console.error(error);
-        // TEXTO ALTERADO: Erro estilizado para falha de rede/sistema
         typingElement.querySelector("p").textContent =
             error.serverMessage ||
             "⚠️ Conexão interrompida. Falha ao sincronizar com o console tático. Tente novamente.";
@@ -67,21 +67,11 @@ function addMessage(role, text) {
         isUser ? "user-message" : "ai-message"
     );
 
-    // REDLINE: Injeta a estilização dinâmica dos Avatares e Cores de Remetente da skin
     messageElement.innerHTML = `
-        <div class="avatar" style="background: ${isUser ? '#22252e' : '#801011'}; border: ${isUser ? '1px solid #3a3f4f' : 'none'}">
-            ${isUser ? "👤" : "🤖"}
-        </div>
-
-        <div class="message-content">
-            <span class="sender" style="color: ${isUser ? '#da292a' : '#888e9e'}">
-                ${isUser ? "Você" : "DUDU AI"}
-            </span>
-            <p class="text"></p>
+        <div class="bubble">
+            <p>${text}</p>
         </div>
     `;
-
-    messageElement.querySelector("p").textContent = text;
 
     messages.appendChild(messageElement);
     scrollToBottom();
@@ -93,18 +83,16 @@ function scrollToBottom() {
     messages.scrollTop = messages.scrollHeight;
 }
 
-// ===== EVENT LISTENERS =====
-
-input.addEventListener("keydown", function (event) {
+input.addEventListener("keydown", (event) => {
     if (event.key === "Enter" && !event.shiftKey) {
         event.preventDefault();
         sendMessage();
     }
 });
 
-input.addEventListener("input", function () {
-    input.style.height = "auto";
-    input.style.height = input.scrollHeight + "px";
-});
-
 sendButton.addEventListener("click", sendMessage);
+
+input.addEventListener("input", () => {
+    input.style.height = "auto";
+    input.style.height = `${input.scrollHeight}px`;
+});
