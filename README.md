@@ -1,83 +1,313 @@
-# 🤖 DUDU AI — Assistente Virtual & Portfólio Interativo
+# 🤖 DUDU AI — Portfólio Interativo com Inteligência Artificial
 
-[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
-[![Google Gemini API](https://img.shields.io/badge/Google%20Gemini-8E75B2?style=for-the-badge&logo=googlecloud&logoColor=white)](https://ai.google.dev/)
-[![Render](https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=black)](https://render.com/)
-[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-222222?style=for-the-badge&logo=github&logoColor=white)](https://pages.github.com/)
+<p align="center">
+  <strong>Um portfólio diferente: desenvolvido para conversar, apresentar meus projetos e mostrar minha evolução como desenvolvedor.</strong>
+</p>
 
-O **DUDU AI** é uma aplicação web Full-Stack interativa que funciona como assistente virtual tático e portfólio para o **Eduardo Ferreira de Souza**. A IA atua como secretária virtual, atendendo os visitantes, fornecendo detalhes sobre a sua formação acadêmica, projetos, currículo e consultando em tempo real as suas atividades recentes no GitHub.
-🌐 Demonstração Online
-Front-end (GitHub Pages): https://itsmeeduu.github.io/DUDU-IA/
+<p align="center">
+  <a href="https://dudu-ia-front.onrender.com">
+    <img src="https://img.shields.io/badge/🚀_DEMO-ONLINE-success?style=for-the-badge" alt="Demo">
+  </a>
+  <a href="https://github.com/ItsmeEduu/DUDU-IA">
+    <img src="https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge&logo=github" alt="GitHub">
+  </a>
+</p>
 
-Back-end API (Render): https://dudu-ia.onrender.com
+---
 
-🔥 Funcionalidades Principais
-💬 Chat Dinâmico com IA: Alimentado pelo SDK oficial do google-genai com instruções de sistema personalizadas e tolerância a falhas (fallback models).
+## 🧠 Sobre o projeto
 
-📊 Integração em Tempo Real com GitHub: O módulo github_info.py recolhe dados dos repositórios públicos e commits recentes do Eduardo para alimentar o contexto do modelo.
+O **DUDU AI** é um portfólio web interativo desenvolvido para apresentar minha trajetória como desenvolvedor de uma maneira diferente.
 
-📂 Portfólio & Currículo num Clique: Navegação integrada para consulta de projetos e acesso direto ao currículo.
+Em vez de apenas navegar por páginas com informações estáticas, o visitante pode interagir com uma **assistente virtual baseada em Inteligência Artificial**, capaz de apresentar informações sobre minha formação, projetos, tecnologias e experiência.
 
-🎨 Interface Tática & Responsiva: Design inspirado em consoles táticos modernos com suporte para múltiplos dispositivos (Mobile-First).
+A ideia nasceu de uma pergunta simples:
 
-🔒 Arquitetura Segura: Chaves de API protegidas em variáveis de ambiente (.env localmente e env vars no servidor Render) com CORS ativado para requisições seguras.
+> **"E se meu portfólio pudesse conversar com quem está visitando?"**
 
-🛠️ Tecnologias Utilizadas
-Back-end (API & Servidor)
-Linguagem: Python
+O resultado foi o DUDU AI.
 
-Framework Web: Flask
+🌐 **Acesse o projeto:**
+https://dudu-ia-front.onrender.com
 
-Servidor WSGI: Gunicorn
+---
 
-IA SDK: google-genai (Gemini Flash & Gemini Flash Lite fallback)
+## ✨ Funcionalidades
 
-Segurança & CORS: flask-cors, python-dotenv
+### 🤖 Assistente com IA
 
-Front-end (Interface)
-Linguagens: HTML5, CSS3, JavaScript (ES6+)
+O projeto utiliza Inteligência Artificial para interpretar as perguntas dos visitantes e responder de acordo com o contexto do meu perfil profissional.
 
-Comunicação Assíncrona: Fetch API
+### 💬 Chat interativo
 
-Estilização: CSS personalizado (Glassmorphism & Tema Dark Tático)
+Interface de conversa desenvolvida com JavaScript e comunicação assíncrona através da Fetch API.
 
-📂 Estrutura do Repositório
-Plaintext
+### 🐙 Integração com GitHub
+
+O projeto possui um módulo responsável por consultar informações públicas do GitHub e utilizar esses dados para enriquecer o contexto apresentado pela aplicação.
+
+### 📂 Portfólio de projetos
+
+Apresentação dos projetos desenvolvidos durante minha jornada de aprendizado em programação e desenvolvimento de software.
+
+### 📄 Currículo
+
+Acesso direto ao meu currículo através da própria interface do portfólio.
+
+### 📱 Interface responsiva
+
+O layout foi desenvolvido pensando em diferentes tamanhos de tela, permitindo a utilização em computadores e dispositivos móveis.
+
+### 🔐 Variáveis de ambiente
+
+As informações sensíveis, como chaves de API, são protegidas através de variáveis de ambiente e não ficam expostas diretamente no código-fonte.
+
+---
+
+## 🛠️ Tecnologias utilizadas
+
+### Front-end
+
+* HTML5
+* CSS3
+* JavaScript (ES6+)
+* Fetch API
+* Design responsivo
+* Glassmorphism
+* Dark Theme
+
+### Back-end
+
+* Python
+* Flask
+* Gunicorn
+* Flask-CORS
+* Python Dotenv
+
+### Inteligência Artificial
+
+* Google Gemini
+* `google-genai`
+* Sistema de instruções/contexto personalizado
+* Modelo de fallback para maior tolerância a falhas
+
+### Integrações
+
+* GitHub API
+* Render
+* GitHub
+
+---
+
+## 🏗️ Arquitetura do projeto
+
+```text
 DUDU-IA/
-├── css/                 # Arquivos de estilização CSS
-├── js/                  # Lógica do front-end e comunicação assíncrona (Fetch)
-├── curriculo/           # Arquivos e documentos do currículo
-├── github_info.py       # Módulo Python para integração com a API do GitHub
-├── server.py           # Servidor de produção Flask/Gunicorn e rotas da API
-├── index.html           # Interface principal da aplicação
-├── requirements.txt     # Dependências Python do projeto
-└── .gitignore           # Arquivos ignorados pelo Git (ex: .env, __pycache__)
-⚙️ Como Executar o Projeto Localmente
-Clonar o repositório:
+│
+├── css/
+│   └── estilos da interface
+│
+├── js/
+│   └── lógica do front-end
+│
+├── curriculo/
+│   └── arquivos do currículo
+│
+├── github_info.py
+│   └── integração com GitHub
+│
+├── server.py
+│   └── servidor Flask + API
+│
+├── index.html
+│   └── interface principal
+│
+├── requirements.txt
+│   └── dependências Python
+│
+├── .gitignore
+│   └── arquivos ignorados pelo Git
+│
+└── README.md
+```
 
-Bash
-git clone [https://github.com/ItsmeEduu/DUDU-IA.git](https://github.com/ItsmeEduu/DUDU-IA.git)
+---
+
+## 🔄 Como funciona
+
+O fluxo principal da aplicação funciona da seguinte maneira:
+
+```text
+                VISITANTE
+                    │
+                    ▼
+            ┌───────────────┐
+            │  Interface    │
+            │   HTML/CSS/JS │
+            └───────┬───────┘
+                    │
+                    │ Fetch API
+                    ▼
+            ┌───────────────┐
+            │ Flask / API   │
+            │   Python      │
+            └───────┬───────┘
+                    │
+             ┌──────┴──────┐
+             ▼             ▼
+        ┌─────────┐   ┌──────────┐
+        │ Gemini  │   │  GitHub  │
+        │   AI    │   │   API    │
+        └────┬────┘   └────┬─────┘
+             │             │
+             └──────┬──────┘
+                    ▼
+             Resposta da IA
+                    │
+                    ▼
+              👤 Visitante
+```
+
+---
+
+## 🚀 Executando localmente
+
+### 1. Clone o repositório
+
+```bash
+git clone https://github.com/ItsmeEduu/DUDU-IA.git
+```
+
+Entre na pasta:
+
+```bash
 cd DUDU-IA
-Instalar as dependências:
+```
 
-Bash
+### 2. Instale as dependências
+
+```bash
 pip install -r requirements.txt
-Configurar as Variáveis de Ambiente:
-Crie um arquivo .env na raiz do projeto com a sua chave da API do Gemini:
+```
 
-Snippet de código
-GEMINI_API_KEY="SuaChaveDoGeminiAqui"
+### 3. Configure as variáveis de ambiente
+
+Crie um arquivo chamado:
+
+```text
+.env
+```
+
+Na raiz do projeto.
+
+Adicione suas configurações:
+
+```env
+GEMINI_API_KEY="SUA_CHAVE_AQUI"
 GEMINI_MODEL="gemini-flash-latest"
-Executar o servidor:
+```
 
-Bash
+> ⚠️ Nunca publique sua chave de API no GitHub.
+
+### 4. Execute o servidor
+
+```bash
 python server.py
-Acesse a aplicação em http://localhost:5000.
+```
 
-✉️ Contatos & Conexões
-GitHub: ItsmeEduu
+Depois, acesse:
 
-LinkedIn: Eduardo Ferreira de Souza
+```text
+http://localhost:5000
+```
 
-E-mail: duduferreira09@gmail.com
+---
+
+## 🌐 Deploy
+
+O projeto está hospedado utilizando:
+
+**Front-end / aplicação:** Render
+
+**Código-fonte:** GitHub
+
+### 🔗 Projeto online
+
+👉 https://dudu-ia-front.onrender.com
+
+---
+
+## 🎯 Objetivo
+
+Mais do que criar um portfólio, este projeto representa uma etapa da minha evolução como desenvolvedor.
+
+Durante o desenvolvimento, pude trabalhar com:
+
+* Desenvolvimento Front-end
+* Desenvolvimento Back-end
+* APIs
+* Python
+* JavaScript
+* Integração com Inteligência Artificial
+* Integração com GitHub
+* Variáveis de ambiente
+* Deploy
+* Comunicação entre Front-end e Back-end
+* Desenvolvimento de interfaces responsivas
+
+O projeto também foi criado com o objetivo de continuar evoluindo conforme avanço nos meus estudos em **Análise e Desenvolvimento de Sistemas**.
+
+---
+
+## 🚧 Próximos passos
+
+O projeto continua em evolução.
+
+Algumas ideias para futuras versões:
+
+* [ ] Histórico de conversas
+* [ ] Melhorar o contexto da IA
+* [ ] Novas integrações com APIs
+* [ ] Sistema de analytics
+* [ ] Melhorias na experiência mobile
+* [ ] Novas animações e interações
+* [ ] Sistema de temas
+* [ ] Mais informações sobre projetos
+* [ ] Melhorias na arquitetura do back-end
+
+---
+
+## 👨‍💻 Desenvolvedor
+
+### Eduardo Ferreira de Souza
+
+Estudante de **Análise e Desenvolvimento de Sistemas**, interessado em desenvolvimento de software, Inteligência Artificial e criação de projetos que transformem ideias em aplicações reais.
+
+Estou construindo minha experiência através de projetos práticos e buscando constantemente aprender novas tecnologias.
+
+### 🔗 Conecte-se comigo
+
+**GitHub:**
+https://github.com/ItsmeEduu
+
+**LinkedIn:**
+https://www.linkedin.com/in/itsmeeduu/
+
+**E-mail:**
+[duduferreira09@gmail.com](mailto:duduferreira09@gmail.com)
+
+---
+
+## ⭐ Gostou do projeto?
+
+Se você achou o projeto interessante, considere deixar uma ⭐ no repositório.
+
+Cada projeto faz parte da minha evolução como desenvolvedor — e este é apenas o começo. 🚀
+
+---
+
+<p align="center">
+  <strong>🤖 DUDU AI</strong><br>
+  <sub>Meu portfólio. Minha evolução. Agora com IA.</sub>
+</p>
+
